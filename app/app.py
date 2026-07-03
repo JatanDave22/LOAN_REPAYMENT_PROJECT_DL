@@ -500,24 +500,49 @@ if predict_button:
     # -----------------------------
     st.subheader("Recommendation")
 
-    if prediction == 1:
+    # -----------------------------
+    # Recommendation
+    # -----------------------------
+    st.subheader("Recommendation")
+
+    if default_probability < 5:
+
+        st.success(
+            """
+    The applicant demonstrates a **very low probability of default** and a strong repayment profile.
+
+    **Recommendation:** Loan approval is recommended, subject to standard verification and lending policies.
+    """
+        )
+
+    elif default_probability < 20:
 
         st.info(
             """
-The applicant appears to have a **good probability of repaying** the loan.
+    The applicant is **likely to repay the loan**, although some credit risk is present.
 
-**Recommendation:** Loan approval can be considered, subject to the lender's policies and any additional verification.
-"""
+    **Recommendation:** Loan approval can be considered after completing the lender's standard verification process.
+    """
+        )
+
+    elif default_probability < 35:
+
+        st.warning(
+            """
+    The applicant is predicted to repay the loan but shows a **moderate probability of default**.
+
+    **Recommendation:** Consider additional verification, a lower loan amount, a shorter repayment term, or stricter lending conditions before approval.
+    """
         )
 
     else:
 
-        st.warning(
+        st.error(
             """
-The applicant appears to have a **higher probability of defaulting** on the loan.
+    The applicant shows a **high probability of default** based on the model's prediction.
 
-**Recommendation:** Consider additional verification, a reduced loan amount, or rejecting the application based on lending policies.
-"""
+    **Recommendation:** Exercise caution. Consider requesting additional financial documentation, reducing the loan amount, requiring a co-applicant or collateral, or declining the application according to the lender's credit policy.
+    """
         )
 
     # -----------------------------
